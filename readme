@@ -1,0 +1,83 @@
+LayeredDiGraph Library
+
+This JavaScript library implements various algorithms in order to provide client with layered directed graph visualization(for more information see Implementation Details section).
+
+Table of Contents
+
+    Installation
+    Usage
+    Implementation Details
+    API
+    Example
+    Testing
+    Contributing
+    License
+
+Installation
+
+To use this library in your project, you can install it via npm:
+
+bash
+
+npm install Layered-DiGraph
+
+Usage
+
+First, import the library into your project:
+
+javascript
+
+
+
+javascript
+
+
+
+API
+
+
+Example
+
+Here’s an example of how to use the library:
+
+javascript
+
+
+
+Output:
+
+json
+
+[
+    { v: 'D', layer: 0, children: [] },
+    { v: 'C', layer: 1, children: ['D'] },
+    { v: 'B', layer: 2, children: ['C'] },
+    { v: 'A', layer: 3, children: ['B'] }
+]
+
+Testing
+
+To run the tests for this library, make sure you have Mocha and Chai installed:
+
+bash
+
+npm install
+npm test
+
+The tests are located in the test directory and cover various scenarios to ensure the algorithm functions correctly.
+Contributing
+
+Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
+
+To contribute:
+
+    Fork the repository.
+    Create a new branch for your feature/bugfix.
+    Commit your changes and push the branch to your fork.
+    Open a pull request to the main repository.
+
+License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+This README.md file should provide a clear and comprehensive overview of your library, making it easy for others to understand and use your work. Adjust the content as needed to better fit your specific library details.
