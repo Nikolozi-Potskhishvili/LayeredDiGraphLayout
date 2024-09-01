@@ -19,6 +19,10 @@ function testYLayering() {
     graph.addEdge(0, 2);
     graph.addEdge(1, 3);
     graph.addEdge(2, 4);
+    graph.addEdge(0, 4);
+    graph.addEdge(9, 1);
+    graph.addEdge(9, 3);
+    graph.addEdge(9, 4);
 
     const layerMaps = graph.getLayeredDiGraphLayout(width);
     console.assert(layerMaps !== undefined && layerMaps !== null);
