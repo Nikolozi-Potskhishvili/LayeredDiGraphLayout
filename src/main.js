@@ -383,4 +383,6 @@ export class DiGraph{
     getDummyStartIndex() { return this.dummyVertexIndex; }
 
     getDummyCount() { return this.dummyVertexIndex; }
+
+    getAdjList() { return this.adjList;}
 }
