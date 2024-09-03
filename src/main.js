@@ -370,12 +370,17 @@ export class DiGraph{
 
     }
 
+    getSize() { return this.size;}
 
-   getSize() { return this.size;}
+    getObjectType() { return typeof this.objectType; }
 
-   getObjectType() { return typeof this.objectType; }
+    getVertex() { return this.vertexes[this.vertexes.length - 1]; }
 
-   getVertex() { return this.vertexes[this.vertexes.length - 1]; }
+    getNeighbours(vertex) { return this.vertexes.findIndex(ver => ver === vertex);}
 
-   getNeighbours(vertex) { return this.vertexes.findIndex(ver => ver === vertex);}
+    getVertexArray() { return this.vertexes;}
+
+    getDummyStartIndex() { return this.dummyVertexIndex; }
+
+    getDummyCount() { return this.dummyVertexIndex; }
 }

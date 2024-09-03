@@ -2,7 +2,7 @@
   "name": "digraphs-layered-layout",
   "description": "A library for layered, hierarchical layout of digraphs.",
   "private": false,
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "MIT",
   "main": "src/main.js",
   "type": "module",
