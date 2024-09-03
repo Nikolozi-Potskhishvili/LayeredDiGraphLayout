@@ -24,14 +24,14 @@ export class DiGraph{
     }
 
    addNode(vertex) {
-        if(this.objectType.type !== vertex.type) {
+        if(typeof this.objectType !== typeof vertex) {
             return "Incorrect type";
         }
         if(this.vertexes.indexOf(vertex) !== -1) {
             return "Vertex already exists";
         }
         this.vertexes.push(vertex);
-        this.adjList[vertex] = [];
+        this.adjList.push([]);
         this.size = vertex.length;
         this.dummyVertexIndex++;
     }
