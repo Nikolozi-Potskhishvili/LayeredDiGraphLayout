@@ -1,12 +1,19 @@
 {
-  "name": "digraphsAsTrees",
-  "private": true,
-  "version": "0.0.1",
+  "name": "digraphs-layered-layout",
+  "description": "A library for layered, hierarchical layout of digraphs.",
+  "private": false,
+  "version": "0.1.0",
+  "license": "MIT",
   "main": "src/main.js",
   "type": "module",
   "scripts": {
       "test": "node test/testYLayerring.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nikolozi-Potskhishvili/LayeredDiGraphLayout"
+  },
+  "keywords": ["digraph", "layout", "layered", "graph", "visualization"],
   "devDependencies": {
     "prettier": "^3.3.1",
     "vite": "^5.1.6"

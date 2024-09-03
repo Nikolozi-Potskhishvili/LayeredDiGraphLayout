@@ -24,9 +24,8 @@ function testYLayering() {
     graph.addEdge(9, 3);
     graph.addEdge(9, 4);
 
-    const layerMaps = graph.getLayeredDiGraphLayout(width);
-    console.assert(layerMaps !== undefined && layerMaps !== null);
-    console.log('Layer Maps:', layerMaps);
+    const finalGrid = graph.getLayeredDiGraphLayout(width);
+    finalGrid.forEach((row, index) => console.log(index + " row", row));
 
 }
 

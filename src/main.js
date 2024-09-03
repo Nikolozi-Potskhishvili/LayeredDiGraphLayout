@@ -1,3 +1,5 @@
+import { createLogger } from 'vite';
+
 export class DiGraph{
     constructor(type) {
         this.adjList = [];
@@ -180,7 +182,7 @@ export class DiGraph{
           }
           let barycentricValue = 0;
           for(let i = 0; i < vertexParents.length; i++) {
-              const parentPosition = layerGrid[parentLayer].indexOf(vertex[i]);
+              const parentPosition = layerGrid[parentLayer].indexOf(vertexParents[i]);
               barycentricValue += parentPosition;
           }
           barycentricValue /= vertexParents.length;
@@ -218,7 +220,9 @@ export class DiGraph{
         console.log("adjList before: ", adjList);
         adjList.forEach((neighbours, index) => {
             if(!component.nodes.includes(index)) return;
-            neighbours.forEach(neighbour => {
+            let i = 0;
+            while(i < neighbours.length) {
+                const neighbour = neighbours[i];
                 if(layerMap.get(neighbour) > layerMap.get(index) + 1) {
                     const dif = layerMap.get(neighbour) - layerMap.get(index);
                     let curNode = index;
@@ -231,10 +235,9 @@ export class DiGraph{
                         layerMap.set(newDummyIndex, newDummyLayer);
                     }
                     adjList[curNode].push(neighbour);
-                    const indexToRemove = parseInt(adjList[index].indexOf(neighbour), 10);
-                    adjList[index].splice(indexToRemove, 1);
-                }
-            });
+                    neighbours.splice(i, 1);
+                } else i++;
+            }
         });
         console.log("adjList after: ", adjList);
         return layerMap;
@@ -244,11 +247,67 @@ export class DiGraph{
         return vertex >= firstDummyIndex;
     }
 
-   #assignCoordinates(connectedComponent) {
+   #assignCoordinates(grids) {
+        this.#centerSortGrids(grids);
+        this.#normalizeComponentGrids(grids)
+        const maxHeight = grids[0].length;
+        const canvasGrid = Array.from({ length: maxHeight }, () => []);
+        for(let row = 0; row < maxHeight; row++) {
+            const rows = grids.map(grid => grid[row]);
+            let pointerNewGrid = 0;
+            rows.forEach((r, index) => {
+              canvasGrid[row][pointerNewGrid++] = -2;
+              r.forEach(coll => {
+                canvasGrid[row][pointerNewGrid++] = coll;
+              });
+           });
+            canvasGrid[row][pointerNewGrid++] = -2;
+        }
 
-
+        return canvasGrid;
     }
 
+    #normalizeComponentGrids(grids) {
+        const maxHeight = Math.max(...grids.map(grid => grid.length));
+        grids.forEach((grid, index) => {
+            const maxWidth = Math.max(...grid.map(row => row.length));
+            const normalizedGrid = Array.from({ length: maxHeight }, () => Array(maxWidth).fill(-1));
+            for(let row = 0; row < grid.length; row++) {
+                const nodeCount = grid[row].length;
+                const startingIndex = nodeCount > 1 ? maxWidth - nodeCount - 1: 0;
+                let pointer = 0;
+                for(let col = startingIndex; col < nodeCount + startingIndex; col++) {
+                    normalizedGrid[row][col] = grid[row][pointer++];
+                }
+            }
+            grids[index] = normalizedGrid;
+        });
+    }
+
+  //this functions sorts grids array so that the largest grids are closer to middle, while smaller - to the edjes or array
+    #centerSortGrids(grids) {
+        grids.sort((a, b) => {
+            const aSize = a.reduce((a, row) => a + row.length, 0);
+            const bSize = b.reduce((b, row) => b + row.length, 0);
+            return aSize - bSize;
+        });
+        const result = new Array(grids.length);
+        let left = 0;
+        let right = grids.length - 1;
+        for (let i = 0; i < grids.length; i++) {
+          if (i % 2 === 0) {
+            result[left] = grids[i];
+            left++;
+          } else {
+            result[right] = grids[i];
+            right--;
+          }
+        }
+
+        for (let i = 0; i < grids.length; i++) {
+          grids[i] = result[i];
+        }
+    }
 
    getLayeredDiGraphLayout(width) {
         const connectedComponents = this.#extractConnectedComponents();
@@ -258,10 +317,9 @@ export class DiGraph{
             this.#addDummyVertexes(this.adjList, layerMap, connectedComponent);
             const grid = this.#baryCenterHeuristic(connectedComponent, width, layerMap, this.adjList);
             grids.push(grid);
-            return;
-            this.#assignCoordinates(connectedComponent);
         });
-        return grids;
+        grids.forEach(grid => grid.forEach(row => console.log("row: " + row)));
+        return this.#assignCoordinates(grids);
     }
 
    #extractConnectedComponents() {
