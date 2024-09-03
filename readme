@@ -1,83 +1,147 @@
-LayeredDiGraph Library
+markdown
 
-This JavaScript library implements various algorithms in order to provide client with layered directed graph visualization(for more information see Implementation Details section).
+# Digraphs Layered Layout
 
-Table of Contents
+A JavaScript library for creating layered layouts of directed graphs (digraphs). This library helps to organize nodes in a visually appealing manner by extracting weakly connected components from a graph, for each of them running Coffman-Graham algorithm, then adding dummy nods, and running barycentric algorithm for x positioning, after this task grid of grids of nodes is normalized and united in a single grid where -2 represents offset of component, -1 offset of node, n >= nodes size is a dummy vector and a nodes size <= value >= 0 is a vertex
 
-    Installation
-    Usage
-    Implementation Details
-    API
-    Example
-    Testing
-    Contributing
-    License
+## Features
 
-Installation
+- Centered node placement within each layer.
+- Maximizes distance between nodes in each layer for better visualization.
+- Simple and easy-to-use API.
 
-To use this library in your project, you can install it via npm:
+## Installation
 
-bash
+### Via npm
 
-npm install Layered-DiGraph
+To install the package via npm, use the following command:
 
-Usage
+```bash
+npm install digraphs-layered-layout
+```
+Via GitHub
 
-First, import the library into your project:
+Alternatively, you can add it directly from the GitHub repository:
 
-javascript
+```bash
+
+npm install git+https://github.com/Nikolozi-Potskhishvili/digraphs-layered-layout.git
+```
+## Usage
+
+Here's how you can use the digraphs-layered-layout library in your project:
+
+```javascript
+
+import { DiGraph } from 'digraphs-layered-layout';
+//create new Digraph object:
+const graph = new DiGraph(1);
+// Example input: nodes and their connections:
+graph.addNode(0);
+graph.addNode(1);
+graph.addNode(2);
+graph.addNode(3);
+graph.addNode(4);
+graph.addNode(5);
+graph.addNode(6);
+graph.addNode(7);
+graph.addNode(8);
+graph.addNode(9);
+
+graph.addEdge(0, 1);
+graph.addEdge(0, 2);
+graph.addEdge(1, 3);
+graph.addEdge(2, 4);
+graph.addEdge(0, 4);
+graph.addEdge(9, 1);
+graph.addEdge(9, 3);
+graph.addEdge(9, 4);
 
 
+// choose desired maximal width of a component and call method below
+const width = 3;
+const finalGrid = graph.getLayeredDiGraphLayout();
+```
 
-javascript
+## API
+DiGraph(type)
+
+creates DiGraph object of a desired type
+
+    Parameters: type of an object you will add to the graph.
+    Returns: void.
+
+getLayeredDiGraphLayout(width)
+
+returns matrix of a weakly connected components
+
+    Parameters: width, desired maximal width of every component.
+    Returns: An array of arrays with values -2 representing component offset, -1 node offset, graph.getSize()>=value>=0 representing nodes and other values - dummy nodes.
 
 
+## Example
 
-API
+Given the following input:
 
+```javascript
+let graph = new DiGraph(1);
+graph.addNode(0);
+graph.addNode(1);
+graph.addNode(2);
+graph.addNode(3);
+graph.addNode(4);
+graph.addNode(5);
+graph.addNode(6);
+graph.addNode(7);
+graph.addNode(8);
+graph.addNode(9);
 
-Example
+const width = 3;
 
-Here’s an example of how to use the library:
+graph.addEdge(0, 1);
+graph.addEdge(0, 2);
+graph.addEdge(1, 3);
+graph.addEdge(2, 4);
+graph.addEdge(0, 4);
+graph.addEdge(9, 1);
+graph.addEdge(9, 3);
+graph.addEdge(9, 4);
 
-javascript
+const finalGrid = graph.getLayeredDiGraphLayout(width);
+finalGrid.forEach((row, index) => console.log(index + " row", row));
+```
 
-
-
-Output:
-
-json
-
-[
-    { v: 'D', layer: 0, children: [] },
-    { v: 'C', layer: 1, children: ['D'] },
-    { v: 'B', layer: 2, children: ['C'] },
-    { v: 'A', layer: 3, children: ['B'] }
+The library will output:
+```
+0 row [
+  -2, 5, -2,  7, -2, -1,
+  -1, 9,  0, -1, -2,  8,
+  -2, 6, -2
 ]
+1 row [
+  -2, -1, -2, -1, -2, 12,
+   1,  2, 10, -1, -2, -1,
+  -2, -1, -2
+]
+2 row [
+  -2, -1, -2, -1, -2, -1,
+  -1,  3,  4, -1, -2, -1,
+  -2, -1, -2
+]
+```
+## Development
+### Running Tests
 
-Testing
+To run the test suite, use the following command:
 
-To run the tests for this library, make sure you have Mocha and Chai installed:
+```bash
 
-bash
-
-npm install
 npm test
+```
 
-The tests are located in the test directory and cover various scenarios to ensure the algorithm functions correctly.
-Contributing
+### Contributing
 
-Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
-
-To contribute:
-
-    Fork the repository.
-    Create a new branch for your feature/bugfix.
-    Commit your changes and push the branch to your fork.
-    Open a pull request to the main repository.
-
+Contributions are welcome(especially more tests)! Please feel free to submit a pull request or open an issue.
 License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-This README.md file should provide a clear and comprehensive overview of your library, making it easy for others to understand and use your work. Adjust the content as needed to better fit your specific library details.
+This project is licensed under the MIT License - see the LICENSE file for details.
