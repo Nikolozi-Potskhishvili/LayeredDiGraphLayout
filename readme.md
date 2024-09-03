@@ -18,26 +18,25 @@ To install the package via npm, use the following command:
 
 ```bash
 npm install digraphs-layered-layout
-
+```
 Via GitHub
 
 Alternatively, you can add it directly from the GitHub repository:
 
-bash
+```bash
 
 npm install git+https://github.com/Nikolozi-Potskhishvili/digraphs-layered-layout.git
-
-Usage
+```
+## Usage
 
 Here's how you can use the digraphs-layered-layout library in your project:
 
-javascript
+```javascript
 
-import { Digraph } from 'digraphs-layered-layout';
+import { DiGraph } from 'digraphs-layered-layout';
 //create new Digraph object:
-const graph = new Digraph(1);
+const graph = new DiGraph(1);
 // Example input: nodes and their connections:
-let graph = new DiGraph(1);
 graph.addNode(0);
 graph.addNode(1);
 graph.addNode(2);
@@ -62,15 +61,14 @@ graph.addEdge(9, 4);
 // choose desired maximal width of a component and call method below
 const width = 3;
 const finalGrid = graph.getLayeredDiGraphLayout();
-console.log(layout);
-javascript
+```
 
-API
+## API
 DiGraph(type)
 
 creates DiGraph object of a desired type
 
-    Parameters: type of an objects
+    Parameters: type of an object you will add to the graph.
     Returns: void.
 
 getLayeredDiGraphLayout(width)
@@ -81,11 +79,11 @@ returns matrix of a weakly connected components
     Returns: An array of arrays with values -2 representing component offset, -1 node offset, graph.getSize()>=value>=0 representing nodes and other values - dummy nodes.
 
 
-Example
+## Example
 
 Given the following input:
 
-javascript
+```javascript
 let graph = new DiGraph(1);
 graph.addNode(0);
 graph.addNode(1);
@@ -111,10 +109,10 @@ graph.addEdge(9, 4);
 
 const finalGrid = graph.getLayeredDiGraphLayout(width);
 finalGrid.forEach((row, index) => console.log(index + " row", row));
-javascript
+```
 
 The library will output:
-javascript
+```
 0 row [
   -2, 5, -2,  7, -2, -1,
   -1, 9,  0, -1, -2,  8,
@@ -130,30 +128,18 @@ javascript
   -1,  3,  4, -1, -2, -1,
   -2, -1, -2
 ]
-
-
-javascript
-
-
-
-Development
-Running Tests
+```
+## Development
+### Running Tests
 
 To run the test suite, use the following command:
 
-bash
+```bash
 
 npm test
+```
 
-Code Formatting
-
-This project uses Prettier for code formatting. To format your code, run:
-
-bash
-
-npm run format
-
-Contributing
+### Contributing
 
 Contributions are welcome(especially more tests)! Please feel free to submit a pull request or open an issue.
 License
