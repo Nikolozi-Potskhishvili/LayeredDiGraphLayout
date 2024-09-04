@@ -261,7 +261,6 @@ export class DiGraph{
            });
             canvasGrid[row][pointerNewGrid++] = -2;
         }
-
         return canvasGrid;
     }
 
@@ -272,7 +271,7 @@ export class DiGraph{
             const normalizedGrid = Array.from({ length: maxHeight }, () => Array(maxWidth).fill(-1));
             for(let row = 0; row < grid.length; row++) {
                 const nodeCount = grid[row].length;
-                const startingIndex = nodeCount > 1 ? maxWidth - nodeCount - 1: 0;
+                const startingIndex = nodeCount > 1 ? maxWidth - nodeCount : 0;
                 let pointer = 0;
                 for(let col = startingIndex; col < nodeCount + startingIndex; col++) {
                     normalizedGrid[row][col] = grid[row][pointer++];
