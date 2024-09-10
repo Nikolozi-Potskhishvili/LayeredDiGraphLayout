@@ -187,8 +187,14 @@ export class DiGraph{
           barycentricValues.set(vertex, barycentricValue);
       });
       currentVertexes.sort((a, b) => {
+          if(barycentricValues.get(a) === barycentricValues.get(b)) {
+              if(Math.floor(Math.random() * 2 - 1) === 0) {
+                  return -1;
+              } else return 0;
+          }
           return barycentricValues.get(a) - barycentricValues.get(b);
       });
+      // applies randomness to the vertexes with equal brycentric values
     }
 
     #calculateGlobalEdgeCrossings(layerGrid, adjList, connectedComponent) {
