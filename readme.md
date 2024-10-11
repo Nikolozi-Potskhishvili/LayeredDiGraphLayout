@@ -1,5 +1,3 @@
-markdown
-
 # Digraphs Layered Layout
 
 A JavaScript library for creating layered layouts of directed graphs (digraphs). This library helps to organize nodes in a visually appealing manner by extracting weakly connected components from a graph, for each of them running Coffman-Graham algorithm, then adding dummy nods, and running barycentric algorithm for x positioning, after this task grid of grids of nodes is normalized and united in a single grid where -2 represents offset of component, -1 offset of node, n >= nodes size is a dummy vector and a nodes size <= value >= 0 is a vertex
